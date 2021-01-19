@@ -38,18 +38,20 @@ program tsunami
 
     ! Iterating the solution forward in time
     time_loop: do n = 1, num_time_steps
-        dh(1) = h(1) - h(grid_size) ! applies periodic boundary condition on the left
-    
-        do concurrent(i = 2: grid_size)
-            dh(i) = h(i) - h(i-1) ! calculates the finite difference of h in space
-        end do
-
-        do concurrent(i = 1: grid_size)
-            h(i) = h(i) - c * dh(i) / dx * dt ! Evaluates h at the next time step
-        end do
-
+        h = h - c * diff(h) / dx * dt !invokes diff(h) to update the new value of h
         print *, n, h ! Prints current values to terminal
     end do time_loop
+
+    contains
+
+    function diff(x) result(dx)
+        real, intent(in) :: x(:) ! assumed-shape real array as input arg
+        real :: dex(size(x)) !result with be real array of size x
+        integer :: im
+        im = size(x)
+        dx(1) = x(1) - x(im) ! calculate boundary value
+        dx(2:im) = x(2:im) - x(1:im-1) ! calculate finite difference for all other elements of x
+    end function diff
 
     
 end program tsunami
