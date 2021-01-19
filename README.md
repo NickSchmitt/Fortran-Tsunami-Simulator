@@ -9,7 +9,7 @@
 
 > *The rate of change of $u$ in time equals the advective speed $c$ times the spatial gradient of $u$.*
 
-![test](../public/Linear-1-D-Advection-Equation.png)
+![test](./public/Linear-1-D-Advection-Equation.png)
 
 ----
 #### Discretizing Partial Derivatives
@@ -29,18 +29,18 @@ To discretize time and space with finite differences:
 
 * Finite difference in time
 
-![test](../public/Finite-Difference-Time.png)
+![test](./public/Finite-Difference-Time.png)
 
 * Finite difference in space
 
-![test](../public/Finite-Difference-Space.png)
+![test](./public/Finite-Difference-Space.png)
 
 ---
 
 #### Casting Derivatives Into Code
 <br>
 
-![test](../public/Casting-Derivatives-Into-Code.png)
+![test](./public/Casting-Derivatives-Into-Code.png)
 
 <br>
 
