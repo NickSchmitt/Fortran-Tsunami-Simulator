@@ -12,7 +12,11 @@ program tsunami
     integer, parameter :: num_time_steps = 100 ! time dmension size will determine number of iterations 
 
     ! Real (floating point) declarations
+<<<<<<< HEAD
     real, parameter :: dt = 1, dx=1, c=1 ! time step [s], grid spacing [m], background flow speed [m/s]
+=======
+    real, parameter :: dt = 1, dx=1, c =1 ! time step [s], grid spacing [m], background flow speed [m/s]
+>>>>>>> 2f1f28470223c2e42ee47dafdca66c3265d66ec6
 
     real :: h(grid_size) ! arrays for water height and its finite difference.
 
@@ -39,6 +43,7 @@ program tsunami
 
     contains
     ! ~pure~ function
+<<<<<<< HEAD
         pure function diff(x) result(dx)
             real, intent(in) :: x(:) ! assumed-shape real array as input arg
             real :: dx(size(x)) !result with be real array of size x
@@ -58,5 +63,26 @@ program tsunami
                 x(i) = exp(-decay * (i-icenter) ** 2)
             end do
         end subroutine set_gaussian
+=======
+    pure function diff(x) result(dx)
+        real, intent(in) :: x(:) ! assumed-shape real array as input arg
+        real :: dex(size(x)) !result with be real array of size x
+        integer :: im
+        im = size(x)
+        dx(1) = x(1) - x(im) ! calculate boundary value
+        dx(2:im) = x(2:im) - x(1:im-1) ! calculate finite difference for all other elements of x
+    end function diff
+
+    ! refactoring the initialization into a ~pure~ subroutine 
+    pure subroutine set_gaussian(x, icenter, decay)
+        real, intent(in out) :: x(:) !one-dimensional array as input (and output) argument
+        integer, intent(in) :: icenter 
+        real, intent(in) :: decay !input parametesr for the perturbation position and shape
+        integer :: i
+        do concurrent(i = 1:size(x))
+            x(i) = exp(-decay * (i-icenter) ** 2)
+        end do
+    end subroutine set_gaussian
+>>>>>>> 2f1f28470223c2e42ee47dafdca66c3265d66ec6
 
 end program tsunami
